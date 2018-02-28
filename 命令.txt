@@ -1,0 +1,2 @@
+docker run --name mysql -v /Users/xxx/docker/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7
+docker run -d -p 8082:8082 --name demo --link mysql:mysql  gzm/demo
