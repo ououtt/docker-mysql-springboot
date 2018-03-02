@@ -1,4 +1,4 @@
 docker run --name mysql -v /Users/xxx/docker/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 
-mvn package docker:build
+mvn package docker:build -Dmaven.test.skip=true
 docker run -d -p 8082:8082 --name demo --link mysql:mysql  gzm/demo
