@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <appender name="gelf" class="me.moocar.logbackgelf.GelfUDPAppender">
+        <remoteHost>172.19.0.1</remoteHost>
+        <port>12201</port>
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="me.moocar.logbackgelf.GelfLayout">
+                <!--An example of overwriting the short message pattern-->
+                <shortMessageLayout class="ch.qos.logback.classic.PatternLayout">
+                    <pattern>%ex{short}%.100m</pattern>
+                </shortMessageLayout>
+                <!-- Use HTML output of the full message. Yes, any layout can be used (please don't actually do this)-->
+                <fullMessageLayout class="ch.qos.logback.classic.PatternLayout">
+                    <pattern>%d{MM-dd HH:mm:ss.SSS} [%thread] %-5level \(%F:%L\) - %msg %n</pattern>
+                </fullMessageLayout>
+                <useLoggerName>true</useLoggerName>
+                <useThreadName>true</useThreadName>
+                <useMarker>true</useMarker>
+                <includeFullMDC>true</includeFullMDC>
+                <fieldType>requestId:long</fieldType>
+                <!--Facility is not officially supported in GELF anymore, but you can use staticFields to do the same thing-->
+                <staticField class="me.moocar.logbackgelf.Field">
+                    <key>tag</key>
+                    <value>demo</value>
+                </staticField>
+            </layout>
+        </encoder>
+    </appender>
+    <root>
+        <level value="info"/>
+        <appender-ref ref="gelf"/>
+    </root>
+</configuration>

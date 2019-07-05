@@ -1,0 +1,14 @@
+version: '2'
+services:
+  demo:
+    image: "gzm/demo"
+#    links:
+#      - mysql:mysql
+    ports:
+      - "8082:8082"
+    logging:
+      driver: gelf
+      options:
+        # 将 x.x.x.x 替换成你的 IP
+        gelf-address: udp://127.0.0.1:12201
+        tag: "demo"
